@@ -1,3 +1,4 @@
 *.tlog
 _ReSharper.TP1/*
 TP1/Debug
+TP1.opensdf
