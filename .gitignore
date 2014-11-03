@@ -3,6 +3,7 @@
 _ReSharper.TP1/*
 TP1/Debug
 TP1.opensdf
+<<<<<<< HEAD
 TP1.sdf
 TP1.v11.suo
 =======
@@ -163,3 +164,5 @@ $RECYCLE.BIN/
 # Mac desktop service store files
 .DS_Store
 >>>>>>> master
+=======
+>>>>>>> origin/vehicule
