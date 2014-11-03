@@ -1,0 +1,190 @@
+\documentclass[11pt,amsfonts,amsmath]{article}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{amsfonts,amsmath,amsthm,amssymb,stmaryrd}
+\textheight 25.6cm \textwidth 16.9cm
+\oddsidemargin 0pt \evensidemargin 0pt
+
+\def\bbox#1{\mbox{\boldmath{$#1$}}}
+%Changes by Kay Wiese the 22.4.1994
+\setlength{\topmargin}{0cm}
+\setlength{\hoffset}{-0.6cm}
+\setlength{\voffset}{-.5cm}
+\setlength{\headsep}{0cm}
+\setlength{\headheight}{0cm}
+\setlength{\topskip}{0cm}
+
+
+\begin{document}
+
+\noindent%
+C++ 2A 2013--2014 \hfill ENSAE \\
+
+\begin{center}
+{\bf TP Git}
+\end{center}
+
+\section{Foreword}
+The objective of this practical class is to manipulate \emph{git} in a real life manner with a dummy C++ project hosted on \textbf{github}. We will use both the command line and a graphical user interface for windows: \textbf{GitExtensions}. The reader is supposed to have basic knowledge of git concepts (see for instance the ProGit book by Scott Chacon or the brilliant lesson by Matthieu Durut at ENSAE).\\
+
+The project will have two committers so this practical is supposed to be followed by a pair of student. The first student of the pair will be referred to as \texttt{StudentA} in the following while the second one will be \texttt{StudentB}.
+
+\section{Student A}
+\subsection{Fork an existing repository and invite a collaborator}
+\begin{itemize}
+\item Open your web browser and visit github.com. Create a free \textbf{github} account and stay logged.
+\item Go to url \emph{github.com/bpatra/tpgit} and fork the repository.
+\item Make sure that \texttt{StudentB} has completed \ref{studentb:create}. Then in your newly forked \emph{tpgit} repository go to \emph{settings, collaborators} and add \texttt{StudentB}.
+\end{itemize}
+
+\subsection{Clone the repository locally with command line}\label{studenta:clone}
+\begin{itemize}
+\item On windows start button look for the \emph{Command Prompt} and run it.
+\item Change current directory to the location where you would want to put the local repository. You will not have to create a folder it will be created automatically (see below).
+\item Clone the remote repository by executing  the following command:\\
+\emph{git clone https://< studenta>@github.com/studenta/tpgit.git}\\
+Until the end of this this document, all command line instructions should be executed with the root of the local repository as command line current directory.
+\end{itemize}
+
+\subsection{First commit with the command line}\label{studenta:commit}
+\begin{itemize}
+\item On \emph{ArithmeticMethods.h} comment out the functions.\\
+e.g. \emph{//IsPrime checks if a positive integer is a prime number. Returns true if the input is prime and false if not.}
+\item View the diff of what you have modified so far by running \emph{git diff}.
+\item Check the status of your repository by running \emph{git status}.
+\item Add the non staged changes of \emph{ArithmeticMethods.h} in the staging area by executing\\
+\emph{git add ./TP1/ArithmeticMethods.h}\\
+Note: we may use alternatively \emph{git add -i}.
+\item Commit your work by running \emph{git commit -m "commenting ArithmeticMethods header file"}
+\end{itemize}
+
+\subsection{Second commit with \textbf{GitExtensions}}
+Follow instructions from \ref{studentb:commitgitext} but comment the functions declarations of the \emph{B.h} file instead.
+
+\subsection{Pushing your modification to the remote}\label{studenta:commit}
+\begin{itemize}
+\item On \textbf{GitExtensions} open \emph{Commands > Push}.
+\item Enter your credentials.
+\item It works simply for the first time (because the remote branch did not have any new commits so the push is a fast forward merge). Next time you will probably have to fetch or pull to be able to push to \textbf{github} repository. Check \ref{studentb:pull}.
+\end{itemize}
+
+\subsection{Basic local branching, reintegrate by merging}\label{sudenta:merge}
+\begin{itemize}
+\item On \textbf{GitExtensions} right click on commit \texttt{aaba7414952b} by benoit and create a new branch named "vehicule"
+\item Create a class called Vehicule
+\item Create a commit with an appropriate message.
+\item Create a child class of the class Vehicule called Car.
+\item Create a commit.
+\item With \textbf{GitExtensions} merge your current branch ("vehicule") with the branch "master", use \emph{Commands > Merge}.
+\item Push your changes to \textbf{github}.
+\end{itemize}
+
+\subsection{Basic local branching, reintegrate by rebasing}\label{sudenta:rebase}
+\begin{itemize}
+\item On \textbf{GitExtensions} right click on commit \texttt{aaba7414952b} by benoit and create a new branch named "complex"
+\item Create a class Complex representing a complex number add constructor and basic accessors.
+\item Create a commit. Mark the commit Hash (SHA1) somewhere.
+\item Extend the Complex class so that a new method getModulus returns the modulus of the current instance.
+\item Create a commit.
+\item With \textbf{GitExtensions} rebase your current branch ("complex") with the branch "master", use \emph{Commands > Rebase}.
+\item Compare the commits hash that you have noted above and the hash of the created commits after the rebase. Compare the rebase operation with merge.
+\item Push your changes to \textbf{github}
+\end{itemize}
+
+\subsection{Solving a conflict}\label{studenta:conflict}
+Synchronize with \texttt{StudentB} and wait him/her to finish \ref{sudentb:merge}. You and \texttt{StudentB} will perform actions on the same file. You will push the changes before him so the conflict will be for him to solve.
+\begin{itemize}
+\item In the function definitions in PointerManipulation.cpp change the name of the variable from $n$ to $p$.
+\item Create a commit and Push it to \textbf{github}.
+\end{itemize}
+
+\subsection{Viewing who has done what: blaming}\label{sudenta:blaming}
+\begin{itemize}
+\item On the \textbf{GitExtensions} main window visit the tab \emph{File tree}.
+\item Find in the tree view ArithmeticsMethods.h (or any file of your choice).
+\item Right click \emph{Blame}.
+\end{itemize}
+
+\subsection{Rewriting local history: rebasing interactively}\label{studenta:interactive}
+For this part we will suppose that we want to change our convention about the include guards. The new convention for a file named A.h the preprocessor constant will be named A\_h rather than A\_H.
+\begin{itemize}
+\item Apply the new conventions to all files in the solution. But leave one intentionally, as if you have forgotten it.
+\item Create a commit with a message "Apply new include guards conventions"
+\item Change something else in the project. For example change the message in B.cpp. Create a commit.
+\item Apply the include guards conventions for the forgotten file. Create a commit with message "fixup forgotten file for include guard convention".
+\end{itemize}
+This is something quite frequent, we have forgotten something and our history of commits is not the one we wanted. What we would like to do is to rearrange the commit so that the third commit is ``integrated'' with the first (squash). Even if it does not seem possible, it is, as long as we have not shared any of those commits. To this aim we will run the command: \emph{git rebase -i} command.
+\begin{itemize}
+\item Execute in command line git rebase -i HEAD\~~3. You will have a text editor popping. Read carefully the comments in the file.
+\item Cut the line referring to the forgotten commit and paste it right under the line of first commit. (Do not touch anything else !)
+\item Change also for this line the instruction \emph{pick} -> \emph{fixup}.
+\item Save file and close the window, let git do the job.
+\end{itemize}
+ You may also try without the command line with the Rebase command of \textbf{GitExtensions}. You will have to check the options "interactive" and "specific ranges" (pickup the commit just before the one with the include guards).
+\section{Student B}
+\subsection{Create a \textbf{github} account}\label{studentb:create}
+\begin{enumerate}
+\item Open your web browser and visit github.com. Create a free \textbf{github} account and stay logged.
+\end{enumerate}
+\subsection{Clone the repository with command line}
+Same as \ref{studenta:clone} but with the command line  git clone https://<\textbf{studentb}>@github.com/studenta/tpgit.git
+\subsection{First commit with \textbf{GitExtensions}}\label{studentb:commitgitext}
+\begin{itemize}
+\item On \emph{PointersManipulation.h} comment out the functions e.g. for the third one:\\
+\emph{//Pass the argument of the function by reference.}
+\item Open \textbf{GitExtensions} and then choose to open the local repository.
+\item Click commit, view the diff, stage the modified file and commit with an appropriate message.
+\end{itemize}
+\subsection{Second commit with command line}
+Follow instructions from \ref{studenta:commit} but comment something on the file \emph{A.h}.
+\subsection{Pushing your modification to the remote}\label{studentb:pull}
+Make sure \texttt{StudentA} has completed \ref{studenta:commit}
+\begin{itemize}
+\item On \textbf{GitExtensions} open \emph{Commands > Push}
+\item Enter your credentials
+\item If  \texttt{StudentA} has completed \ref{studenta:commit} then git refuses you push because you cannot fast forward merge on branch origin/master.
+Solve this by executing the following command line\\
+\emph{git fetch origin/master} then \emph{git merge origin/master} or simply by using Pull in \textbf{GitExtensions}.
+\item Push again.
+\end{itemize}
+\subsection{Basic local branching, reintegrate by rebasing}
+\begin{itemize}
+\item On \textbf{GitExtensions} right click on commit \texttt{aaba7414952b} by benoit and create a new branch named "person"
+\item Create a class Person representing the an individual that has two members Name and Age.
+\item Create a commit. Mark the commit Hash (SHA1) somewhere.
+\item Extend the Person with a new method \emph{Hello}, which returns a basic string such as "Hello I am <the name here> and I am <the age here>".
+\item Create a commit.
+\item With \textbf{GitExtensions} rebase your current branch ("person") with the branch "master", use \emph{Commands > Rebase}.
+\item Compare the commits hash that you have noted above and the hash of the created commits after the rebase.
+\item Push your changes to \textbf{github}
+\end{itemize}
+
+\subsection{Basic local branching, reintegrate by merge}\label{sudentb:merge}
+\begin{itemize}
+\item On \textbf{GitExtensions} right click on commit \texttt{aaba7414952b} by benoit and create a new branch named "boats"
+\item Create a class called Boat
+\item Create a commit.
+\item Create a child class of the class Boat called MotorBoat.
+\item Create a commit.
+\item With \textbf{GitExtensions} merge your current branch ("vehicule") with the branch "master", use \emph{Commands > Merge}.
+\item Push your changes to \textbf{github}.
+\end{itemize}
+
+\subsection{Solving a conflict}
+Synchronize with \texttt{StudentA} and wait him/her to finish \ref{sudenta:rebase}.\\
+\begin{itemize}
+\item In the function definitions in PointerManipulation.cpp change the name of the variable from $n$ to $m$.
+\item Create a commit.
+\item Wait that \texttt{StudentA} has performed \ref{studenta:push}.
+\item Wait that \texttt{StudentA} has performed \ref{studenta:conflict}.
+\item Execute the Pull command.
+\item You should have a conflict. Indeed your work conflicts with the commit from \texttt{StudentA}! \textbf{GitExtensions} will help you to solve it (click on unresolved conflicts). You will have to choose between your version with $m$ or the one of \texttt{StudentA} with $p$. Suppose that your are right and fix the conflict and always use the ``$m$ version''.
+\end{itemize}
+
+\subsection{Viewing who has done what: blaming}
+Same as \ref{sudenta:blaming}.
+
+\subsection{Rewriting local history: rebasing interactively}
+Same as \ref{studenta:interactive}, do not push commits once done.
+
+\end{document} 
