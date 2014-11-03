@@ -30,6 +30,12 @@
     <ClCompile Include="B.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
+=======
+    <ClCompile Include="personn.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+>>>>>>> Creation de fonction Hello
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArithmeticMethods.h">
@@ -44,5 +50,11 @@
     <ClInclude Include="B.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
+=======
+    <ClInclude Include="personn.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+>>>>>>> Creation de fonction Hello
   </ItemGroup>
 </Project>
